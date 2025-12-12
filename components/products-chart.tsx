@@ -1,5 +1,6 @@
 "use client";
 
+import { useTheme } from "next-themes";
 import {
   Area,
   AreaChart,
@@ -16,7 +17,9 @@ interface ChartData {
 }
 
 export default function ProductChart({ data }: { data: ChartData[] }) {
-  console.log(data);
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
+
   return (
     <div className="h-48 w-full">
       <ResponsiveContainer width="100%" height="100%">
@@ -24,16 +27,16 @@ export default function ProductChart({ data }: { data: ChartData[] }) {
           data={data}
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
         >
-          <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+          <CartesianGrid strokeDasharray="3 3" stroke={isDark ? "#374151" : "#f0f0f0"} />
           <XAxis
             dataKey="week"
-            stroke="#666"
+            stroke={isDark ? "#d1d5db" : "#666"}
             fontSize={12}
             tickLine={false}
             axisLine={false}
           />
           <YAxis
-            stroke="#666"
+            stroke={isDark ? "#d1d5db" : "#666"}
             fontSize={12}
             tickLine={false}
             axisLine={false}
@@ -53,12 +56,16 @@ export default function ProductChart({ data }: { data: ChartData[] }) {
 
           <Tooltip
             contentStyle={{
-              backgroundColor: "white",
-              border: "1px solid #e5e7eb",
+              backgroundColor: isDark ? "#111827" : "white",
+              border: isDark ? "1px solid #374151" : "1px solid #e5e7eb",
               borderRadius: "8px",
               boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+              color: isDark ? "#e5e7eb" : "#111827",
             }}
-            labelStyle={{ color: "#374151", fontWeight: "500" }}
+            labelStyle={{
+              color: isDark ? "#e5e7eb" : "#374151",
+              fontWeight: "500",
+            }}
           />
         </AreaChart>
       </ResponsiveContainer>

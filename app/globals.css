@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Use class-based dark mode so next-themes can toggle by adding/removing `dark` on <html>. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 body {
   font-family: Arial, Helvetica, sans-serif;
+  @apply bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100;
 }

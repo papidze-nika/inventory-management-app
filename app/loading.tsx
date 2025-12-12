@@ -8,11 +8,27 @@ import { UserButton } from "@stackframe/stack";
 // Skeleton component for loading states
 function Skeleton({ className = "" }: { className?: string }) {
   return (
-    <div className={`animate-pulse bg-gray-200 rounded ${className}`}></div>
+    <div className={`animate-pulse bg-gray-200 dark:bg-gray-800 rounded ${className}`}></div>
   );
 }
 
-// Sidebar component for loading state
+// Mobile top bar skeleton
+function LoadingMobileHeader() {
+  return (
+    <header className="md:hidden fixed top-0 left-0 right-0 z-20 h-14 bg-gray-900 text-white">
+      <div className="h-full px-4 flex items-center justify-between">
+        <Skeleton className="h-9 w-9 rounded-lg bg-gray-800" />
+        <div className="flex items-center gap-2">
+          <BarChart3 className="w-5 h-5" />
+          <span className="font-semibold">Inventory App</span>
+        </div>
+        <Skeleton className="h-9 w-9 rounded-full bg-gray-800" />
+      </div>
+    </header>
+  );
+}
+
+// Sidebar component for loading state (desktop)
 function LoadingSidebar() {
   const navigation = [
     { name: "Dashboard", href: "/dashboard", icon: BarChart3 },
@@ -22,7 +38,7 @@ function LoadingSidebar() {
   ];
 
   return (
-    <div className="fixed left-0 top-0 bg-gray-900 text-white w-64 min-h-screen p-6 z-10">
+    <div className="hidden md:block fixed left-0 top-0 bg-gray-900 text-white w-64 min-h-screen p-6 z-10">
       <div className="mb-8">
         <div className="flex items-center space-x-2 mb-4">
           <BarChart3 className="w-7 h-7" />
@@ -71,7 +87,13 @@ function MainContentSkeleton({
   showSidebar?: boolean;
 }) {
   return (
-    <main className={showSidebar ? "ml-64 p-8" : "p-8"}>
+    <main
+      className={
+        showSidebar
+          ? "md:ml-64 p-4 md:p-8 pt-16 md:pt-8"
+          : "p-4 md:p-8"
+      }
+    >
       {/* Header skeleton */}
       <div className="mb-8">
         <Skeleton className="h-8 w-32 mb-2" />
@@ -80,7 +102,7 @@ function MainContentSkeleton({
 
       {/* Key Metrics skeleton */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-6">
           <Skeleton className="h-6 w-24 mb-6" />
           <div className="grid grid-cols-3 gap-6">
             {[1, 2, 3].map((i) => (
@@ -96,7 +118,7 @@ function MainContentSkeleton({
           </div>
         </div>
 
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-6">
           <div className="flex items-center justify-between mb-6">
             <Skeleton className="h-6 w-40" />
           </div>
@@ -107,7 +129,7 @@ function MainContentSkeleton({
       {/* Bottom Row skeleton */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Stock levels skeleton */}
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-6">
           <div className="flex items-center justify-between mb-6">
             <Skeleton className="h-6 w-24" />
           </div>
@@ -115,7 +137,7 @@ function MainContentSkeleton({
             {[1, 2, 3, 4, 5].map((i) => (
               <div
                 key={i}
-                className="flex items-center justify-between p-3 rounded-lg bg-gray-50"
+                className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800"
               >
                 <div className="flex items-center space-x-3">
                   <Skeleton className="w-3 h-3 rounded-full" />
@@ -128,7 +150,7 @@ function MainContentSkeleton({
         </div>
 
         {/* Efficiency skeleton */}
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-6">
           <div className="flex items-center justify-between mb-6">
             <Skeleton className="h-6 w-20" />
           </div>
@@ -158,7 +180,8 @@ export default function Loading() {
   const showSidebar = !["/", "/sign-in", "/sign-up"].includes(pathname);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      {showSidebar && <LoadingMobileHeader />}
       {showSidebar && <LoadingSidebar />}
       <MainContentSkeleton showSidebar={showSidebar} />
     </div>

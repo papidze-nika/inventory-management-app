@@ -37,7 +37,7 @@ export default function Sidebar({
               key={key}
               className={`flex items-center space-x-3 py-2 px-3 rounded-lg ${
                 isActive
-                  ? "bg-purple-100 text-gray-800"
+                  ? "bg-purple-100 text-gray-800 dark:bg-purple-900 dark:text-white"
                   : "hover:bg-gray-800 text-gray-300"
               }`}
             >

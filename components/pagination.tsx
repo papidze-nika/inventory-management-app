@@ -54,23 +54,24 @@ export default function Pagination({
   const visiblePages = getVisiblePages();
 
   return (
-    <nav className="flex items-center justify-center gap-1">
-      <Link
-        href={getPageUrl(currentPage - 1)}
-        className={`flex items-center px-3 py-2 text-sm font-meium rounded-lg ${
-          currentPage <= 1
-            ? "text-gray-400 cursor-not-allowed bg-gray-100"
-            : "text-gray-700 hover:bg-gray-100 bg-white border border-gray-300"
-        }`}
-        aria-disabled={currentPage <= 1}
-      >
-        <ChevronLeft /> Prevous
-      </Link>
+    <nav className="flex flex-wrap items-center justify-center gap-1">
+      {currentPage <= 1 ? (
+        <span className="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-gray-400 bg-gray-100 dark:bg-gray-800 dark:text-gray-500">
+          <ChevronLeft className="w-4 h-4" /> Previous
+        </span>
+      ) : (
+        <Link
+          href={getPageUrl(currentPage - 1)}
+          className="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700"
+        >
+          <ChevronLeft className="w-4 h-4" /> Previous
+        </Link>
+      )}
 
       {visiblePages.map((page, key) => {
         if (page === "...") {
           return (
-            <span key={key} className="px-3 py-2 text-sm text-gray-500">
+            <span key={key} className="px-3 py-2 text-sm text-gray-500 dark:text-gray-400">
               ...
             </span>
           );
@@ -86,7 +87,7 @@ export default function Pagination({
             className={`px-3 py-2 text-sm font-medium rounded-lg ${
               isCurrentPage
                 ? "bg-purple-600 text-white"
-                : "text-gray-700 hover:bg-gray-100 bg-white border border-gray-300"
+                : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700"
             }`}
           >
             {pageNumber}
@@ -94,18 +95,18 @@ export default function Pagination({
         );
       })}
 
-      <Link
-        href={getPageUrl(currentPage + 1)}
-        className={`flex items-center px-3 py-2 text-sm font-meium rounded-lg ${
-          currentPage >= totalPages
-            ? "text-gray-400 cursor-not-allowed bg-gray-100"
-            : "text-gray-700 hover:bg-gray-100 bg-white border border-gray-300"
-        }`}
-        aria-disabled={currentPage >= totalPages}
-      >
-        Next
-        <ChevronRight />
-      </Link>
+      {currentPage >= totalPages ? (
+        <span className="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-gray-400 bg-gray-100 dark:bg-gray-800 dark:text-gray-500">
+          Next <ChevronRight className="w-4 h-4" />
+        </span>
+      ) : (
+        <Link
+          href={getPageUrl(currentPage + 1)}
+          className="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700"
+        >
+          Next <ChevronRight className="w-4 h-4" />
+        </Link>
+      )}
     </nav>
   );
 }

@@ -43,14 +43,14 @@ export default function DeleteProductCell({
         </button>
       ) : (
         <div className="space-y-2">
-          <div className="bg-red-50 border border-red-200 text-red-800 px-3 py-2 rounded-lg text-sm">
+          <div className="bg-red-50 border border-red-200 text-red-800 dark:bg-red-950/30 dark:border-red-900 dark:text-red-200 px-3 py-2 rounded-lg text-sm">
             Are you sure you want to delete &quot;{productName}&quot;?
           </div>
           <div className="flex gap-2">
             <button
               type="button"
               onClick={handleCancel}
-              className="px-3 py-1 text-sm rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100"
+              className="px-3 py-1 text-sm rounded-lg border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
             >
               Cancel
             </button>
